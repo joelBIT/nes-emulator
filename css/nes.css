@@ -1,0 +1,87 @@
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+canvas {
+  vertical-align: middle;
+  background: #eee;
+  display: block;
+  width: 768px;
+  height: 720px;
+  margin: 0 auto 2rem;
+}
+
+body {
+  text-align: center;
+  margin: 1rem 0 0;
+}
+
+header {
+  padding: 1rem;
+}
+
+h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-family: Silkscreen, sans-serif;
+  color: #1cff28;
+}
+
+dialog {
+  display: grid;
+  grid-template: auto / 1fr 1fr;
+  opacity: 0;
+  padding-right: 3rem;
+}
+
+dialog[open] {
+  opacity: 1;
+}
+
+.player1, .player2 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  align-self: self-end;
+}
+
+article {
+  display: flex;
+  justify-content: flex-end;
+}
+
+article input {
+  align-self: center;
+  height: 20%;
+  width: 50%;
+  margin-left: 0.5rem;
+}
+
+.missing {
+  border-color: red;
+}
+
+.save, .close {
+  width: 20%;
+}
+
+.save {
+  justify-self: self-end;
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    darkred,
+    red,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}
+
+.hidden {
+  display: none;
+}
