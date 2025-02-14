@@ -40,10 +40,18 @@ window.onload = () => {
 
 const keyUpEventLogger = function(event) {
   worker.postMessage({event: 'keyup', value: event.code});
+
+  if (event.code === 'ArrowUp') {
+    event.preventDefault();
+  }
 };
 
 const keyDownEventLogger = function(event) {
   worker.postMessage({event: 'keydown', value: event.code});
+
+  if (event.code === 'ArrowDown') {
+    event.preventDefault();
+  }
 };
 
 window.addEventListener("keyup", keyUpEventLogger);
@@ -73,7 +81,6 @@ document.getElementById("nesfile").addEventListener('change', input => {
     alert('No file');
     return;
   }
-  console.log(input.target.files[0]);
 
   if (input.target.files[0].type !== 'application/x-nes-rom') {
     document.getElementById("nesfile").value = '';
