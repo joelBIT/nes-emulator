@@ -110,9 +110,9 @@ document.getElementById("nesfile").addEventListener('change', input => {
  */
 
 const dialog = document.getElementById("dialog");
-const showButton = document.querySelector(".show");
-const closeButton = document.querySelector(".close");
-const saveButton = document.querySelector(".save");
+const showButton = document.querySelector(".show-button");
+const closeButton = document.querySelector(".close-button");
+const saveButton = document.querySelector(".save-button");
 
 /**
  * Retrieve controller configuration from local storage. Use default values for buttons if configuration is not found.

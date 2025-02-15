@@ -1,87 +1,114 @@
-html {
-  color: #222;
-  font-size: 1em;
-  line-height: 1.4;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-canvas {
-  vertical-align: middle;
-  background: #eee;
-  display: block;
-  width: 768px;
-  height: 720px;
-  margin: 0 auto 2rem;
+:root {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+    width: 100vw;
 }
 
 body {
-  text-align: center;
-  margin: 1rem 0 0;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    margin: 1rem 0 0;
 
-header {
-  padding: 1rem;
-}
+    header {
+        padding: 1rem;
+      
+        & .emulator-title {
+            margin-block-start: 0;
+            margin-block-end: 0;
+            font-family: Silkscreen, sans-serif;
+            color: #1cff28;
+        }
+    }
 
-h1 {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  font-family: Silkscreen, sans-serif;
-  color: #1cff28;
-}
+    canvas {
+        background: #eee;
+        width: 768px;
+        height: 720px;
+        align-self: center;
+    }
 
-dialog {
-  display: grid;
-  grid-template: auto / 1fr 1fr;
-  opacity: 0;
-  padding-right: 3rem;
-}
+    & #nesfile {
+        align-self: center;
+    }
 
-dialog[open] {
-  opacity: 1;
-}
+    dialog {
+        opacity: 0;
+        padding-right: 1.5rem;
 
-.player1, .player2 {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 3rem;
-  align-self: self-end;
-}
+        .player1-controller, .player2-controller {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 3rem;
+            align-self: self-end;
 
-article {
-  display: flex;
-  justify-content: flex-end;
-}
+            article {
+                display: flex;
+                justify-content: flex-end;
 
-article input {
-  align-self: center;
-  height: 20%;
-  width: 50%;
-  margin-left: 0.5rem;
+                & .key {
+                    align-self: center;
+                    height: 20%;
+                    width: 50%;
+                    margin-left: 0.5rem;
+                }
+            }
+        }
+
+        & .dialog-buttons {
+            display: flex;
+            padding: 1rem;
+            justify-content: space-between;
+
+            .save-button, .close-button {
+                width: fit-content;
+            }
+        }
+    }
+
+    .show-button {
+        width: fit-content;
+        align-self: center;
+    }
+    
+    dialog[open] {
+        opacity: 1;
+        position-area: center;
+    }
 }
 
 .missing {
-  border-color: red;
-}
-
-.save, .close {
-  width: 20%;
-}
-
-.save {
-  justify-self: self-end;
+    border-color: red;
 }
 
 ::backdrop {
-  background-image: linear-gradient(
-    45deg,
-    darkred,
-    red,
-    dodgerblue,
-    green
-  );
-  opacity: 0.75;
+    background-image: linear-gradient(
+        45deg,
+        darkred,
+        red,
+        dodgerblue,
+        green
+    );
+    opacity: 0.75;
 }
 
 .hidden {
-  display: none;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+    }
 }
