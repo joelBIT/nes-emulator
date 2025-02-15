@@ -1,8 +1,11 @@
 'use strict';
 
+const urlParams = new URLSearchParams(window.location.search);
+const gameId = urlParams.get('id');
 const worker = new Worker('js/emulator.js',{ type: "module" });
 let nesWorkletNode;
 let audioContext;
+let userInteraction = false;
 
 /**
  * |******************|
@@ -29,6 +32,9 @@ window.onload = () => {
     nesWorkletNode.connect(audioContext.destination);
     const source = audioContext.createBufferSource();
     source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
+    if (gameId) {
+      getRom();
+    }
   }).catch(error => console.log(error));
 };
 
@@ -43,6 +49,11 @@ const keyUpEventLogger = function(event) {
 
   if (event.code === 'ArrowUp') {
     event.preventDefault();
+  }
+
+  if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
+    userInteraction = true;
+    audioContext.resume();
   }
 };
 
@@ -88,14 +99,7 @@ document.getElementById("nesfile").addEventListener('change', input => {
     return;
   }
 
-  const controllerConfiguration = [];
-  for (const key of keys) {
-    if (localStorage.getItem(key.id)) {
-      controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) } );
-    } else {
-      controllerConfiguration.push( { button: key.id, value: key.value } );
-    }
-  }
+  const controllerConfiguration = setControllerConfiguration();
   worker.postMessage({ event: 'configuration', data: controllerConfiguration });
 
   const fileReader = new FileReader();
@@ -113,6 +117,23 @@ const dialog = document.getElementById("dialog");
 const showButton = document.querySelector(".show-button");
 const closeButton = document.querySelector(".close-button");
 const saveButton = document.querySelector(".save-button");
+
+/**
+ * Creates an array containing the controller configuration for player 1 and player 2.
+ */
+function setControllerConfiguration() {
+  const controllerConfiguration = [];
+
+  for (const key of keys) {
+    if (localStorage.getItem(key.id)) {
+      controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) } );
+    } else {
+      controllerConfiguration.push( { button: key.id, value: key.value } );
+    }
+  }
+
+  return controllerConfiguration;
+}
 
 /**
  * Retrieve controller configuration from local storage. Use default values for buttons if configuration is not found.
@@ -227,5 +248,31 @@ function removeKeyWhereAlreadyUsed(event) {
     if (Object.is(key.value, keyCode)) {
       key.value = '';
     }
+  }
+}
+
+
+
+/*************************
+ * Load NES ROM from API *
+ *************************/
+
+/**
+ * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
+ */
+async function getRom() {
+  const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
+  try {
+    const response = await fetch(url);
+    const buffer = new Uint8Array(60000000);
+    const reader = response.body.getReader({ mode: "byob" });
+    const finished = await reader.read(buffer);
+
+    const controllerConfiguration = setControllerConfiguration();
+
+    worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+    worker.postMessage({event: 'readFile', data: finished.value});
+  } catch (error) {
+    console.error(error.message);
   }
 }
