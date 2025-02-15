@@ -70,6 +70,7 @@ body {
 
             .save-button, .close-button {
                 width: fit-content;
+                padding: 0.2rem;
             }
         }
     }
@@ -77,6 +78,7 @@ body {
     .show-button {
         width: fit-content;
         align-self: center;
+        padding: 0.2rem;
     }
     
     dialog[open] {
