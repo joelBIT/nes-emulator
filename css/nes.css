@@ -33,6 +33,10 @@ body {
             width: fit-content;
             padding: 0.4rem;
             align-self: center;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
@@ -78,6 +82,10 @@ body {
             .save-button, .close-button {
                 width: fit-content;
                 padding: 0.2rem;
+                
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }
@@ -87,6 +95,10 @@ body {
         align-self: center;
         padding: 0.2rem;
         margin-bottom: 4rem;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
     
     dialog[open] {
