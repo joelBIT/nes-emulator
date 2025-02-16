@@ -13,9 +13,6 @@ let userInteraction = false;
  * |******************|
  */
 
-worker.onmessage = function(message) {
-  nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
-};
 
 /**
  * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -32,11 +29,22 @@ window.onload = () => {
     nesWorkletNode.connect(audioContext.destination);
     const source = audioContext.createBufferSource();
     source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
-    if (gameId) {
-      getRom();
-    }
+    worker.onmessage = function(message) {
+      nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
+    };
   }).catch(error => console.log(error));
 };
+
+/**
+ * Loads a game from query parameter 'id' if available.
+ */
+document.addEventListener("DOMContentLoaded", async (event) => {
+  if (gameId) {
+    const controllerConfiguration = setControllerConfiguration();
+    worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+    await getRom();
+  }
+});
 
 /**
  * |*************************|
@@ -261,18 +269,29 @@ function removeKeyWhereAlreadyUsed(event) {
  * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
  */
 async function getRom() {
-  const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
-  try {
-    const response = await fetch(url);
-    const buffer = new Uint8Array(60000000);
-    const reader = response.body.getReader({ mode: "byob" });
-    const finished = await reader.read(buffer);
-
-    const controllerConfiguration = setControllerConfiguration();
-
-    worker.postMessage({ event: 'configuration', data: controllerConfiguration });
-    worker.postMessage({event: 'readFile', data: finished.value});
-  } catch (error) {
-    console.error(error.message);
-  }
+    const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
+    try {
+      const response = await fetch(url);
+      const buffer = new Uint8Array(60000000);
+      const reader = response.body.getReader({ mode: "byob" });
+      const finished = await reader.read(buffer);
+      worker.postMessage({event: 'readFile', data: finished.value});
+    } catch (error) {
+      console.log(error);
+    }
 }
+
+
+/**
+ * Reload page once to get game from cache when downloaded, if necessary.
+ */
+(() => {
+  if (window.localStorage) {
+      if (!localStorage.getItem('reload')) {
+          localStorage['reload'] = true;
+          window.location.reload();
+      } else {
+          localStorage.removeItem('reload');
+      }
+  }
+})(); // Calling anonymous function here only
