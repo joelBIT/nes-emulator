@@ -286,6 +286,7 @@ async function getRom() {
 
 startButton.addEventListener('click', () => {
     getRom();
+    window.location.reload();
 });
 
 /**
