@@ -43,11 +43,11 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 
 <br><br>
         
-<img src="https://github.com/user-attachments/assets/82f96db7-af2d-4fba-bc87-893533722c13" width=400>  <img src="https://github.com/user-attachments/assets/8cb027e8-4102-4db9-8131-d6e0b5d2c83a" width="400">
+<img src="./images/smb.png" width=400>  <img src="./images/batmanjoker.png" width="400">
 
-<img src="https://github.com/user-attachments/assets/1f16bd87-d2d5-4cb2-957f-c77acb9d5259" width="400"> <img src="https://github.com/user-attachments/assets/d87e43d9-491b-44f4-80b0-32498b478eb4" width="400">
+<img src="./images/battletoadsdoubledragon.png" width="400"> <img src="./images/ducktales.png" width="400">
 
-<img src="https://github.com/user-attachments/assets/893cb468-23e2-4c64-8bcf-bf5c0cbc6ad7" width="400"> <img src="https://github.com/user-attachments/assets/777a6304-feac-4baa-8677-abb5feaa310f" width="400">
+<img src="./images/megaman2.png" width="400"> <img src="./images/smb3.png" width="400">
 
 
 
