@@ -53,13 +53,13 @@ body {
 
     dialog {
         opacity: 0;
-        padding-right: 1.5rem;
 
         .player1-controller, .player2-controller {
             display: flex;
             flex-direction: column;
             margin-bottom: 3rem;
             align-self: self-end;
+            padding-right: 1.5rem;
 
             article {
                 display: flex;
