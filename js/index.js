@@ -265,6 +265,8 @@ function removeKeyWhereAlreadyUsed(event) {
  * Load NES ROM from API *
  *************************/
 
+const startButton = document.querySelector(".start-button");    // Start loaded rom
+
 /**
  * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
  */
@@ -276,11 +278,15 @@ async function getRom() {
       const reader = response.body.getReader({ mode: "byob" });
       const finished = await reader.read(buffer);
       worker.postMessage({event: 'readFile', data: finished.value});
+      startButton.classList.remove('hidden');
     } catch (error) {
       console.log(error);
     }
 }
 
+startButton.addEventListener('click', () => {
+    getRom();
+});
 
 /**
  * Reload page once to get game from cache when downloaded, if necessary.
