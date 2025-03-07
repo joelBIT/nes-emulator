@@ -46,6 +46,10 @@ export class StatusRegister {
     this.status[0] |= (1 << 6);
   }
 
+  clearSpriteZeroHit() {
+    this.status[0] &= ~(1 << 6);
+  }
+
   setVerticalBlank() {
     this.status[0] |= (1 << 7);
   }
