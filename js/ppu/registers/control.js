@@ -66,7 +66,7 @@ export class ControlRegister {
    * @returns {number}    return 1 if going 1 step along the X-axis; return 32 if going down 1 row on the Y-axis
    */
   getIncrementMovement() {
-    return this.getIncrementMode() ? 32 : 1;
+    return this.getIncrementMode() > 0 ? 32 : 1;
   }
 
   getSpritePatternTableNumber() {

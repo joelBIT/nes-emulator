@@ -216,7 +216,7 @@ class PPU {
             | Foreground Rendering |
             ************************
      */
-      if (this.cycle === 257 && this.scanline >= this.VISIBLE_FRAME_START) {
+      if (this.cycle === this.RESET_X_POSITION && this.scanline >= this.VISIBLE_FRAME_START) {
         this.foreground.initializeForegroundRendering();
 
         this.foreground.clearShifters();
@@ -232,7 +232,7 @@ class PPU {
       if (this.cycle === this.END_OF_SCANLINE) {
         this.loadSpritePatternsForNextScanline();
       }
-    }
+    }   // End of VISIBLE SCAN LINES ((-1) 0 to 239)
 
     if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 1) {
       this.statusRegister.setVerticalBlank();
@@ -254,6 +254,12 @@ class PPU {
       if (this.cycle === 260 && this.scanline < this.POST_RENDER_IDLE_LINE) {
         this.cartridge.getMapper().scanLine();
       }
+    }
+
+    if (this.cycle === 1 && this.scanline === this.PRE_RENDER_LINE) {
+      this.statusRegister.clearVerticalBlank();
+      this.statusRegister.clearSpriteOverflow();
+      this.statusRegister.clearSpriteZeroHit();
     }
 
     if (this.cycle > this.END_OF_SCANLINE) {
@@ -404,6 +410,7 @@ class PPU {
         this.dataBuffer = this.readMemory(this.scrollVRAM.getRegister());
         if (this.scrollVRAM.getRegister() >= 0x3F00) {   // Handle palette addresses
           data = this.dataBuffer;
+          this.dataBuffer = this.readMemory(this.scrollVRAM.getRegister() - 0x1000);
         }
         this.scrollVRAM.setRegister(this.scrollVRAM.getRegister() + this.controlRegister.getIncrementMovement());
         return data;

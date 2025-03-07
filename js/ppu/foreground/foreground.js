@@ -170,7 +170,7 @@ export class Foreground {
   }
 
   reset() {
-    this.shifter.reset();
+    this.clearShifters();
     this.clearSpriteData();
     this.OAM.reset();
   }
