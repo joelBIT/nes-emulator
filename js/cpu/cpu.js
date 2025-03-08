@@ -71,9 +71,8 @@ class CPU {
       this.cycles += (additionalCycle1 & additionalCycle2);
       this.statusRegister.setFlag(Flags.U);
     }
-    while (this.cycles !== 0) {
-      this.cycles--;
-    }
+
+    this.cycles--;
   }
 
   createInstructions() {
