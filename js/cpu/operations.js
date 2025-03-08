@@ -251,7 +251,7 @@ export const OfficialOperations = {
           { addressMode: "ABX", opcode: 0x9D, cycles: 5 },
           { addressMode: "ABY", opcode: 0x99, cycles: 5 },
           { addressMode: "IZX", opcode: 0x81, cycles: 6 },
-          { addressMode: "IZY", opcode: 0x91, cycles: 5 },
+          { addressMode: "IZY", opcode: 0x91, cycles: 6 },
           { addressMode: "ZP0", opcode: 0x85, cycles: 3 },
           { addressMode: "ZPX", opcode: 0x95, cycles: 4 } ],
   "STX": [ { addressMode: "ABS", opcode: 0x8E, cycles: 4 },

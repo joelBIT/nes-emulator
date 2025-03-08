@@ -118,15 +118,21 @@ class CPU {
    *  Address Mode: Indexed Absolute X
    */
   ABX() {
+    let cycle = 0;
     let address = this.read(this.programCounter.get());
     this.programCounter.increment();
+
+    const carry = (address + this.registerX.get()) & 0xFF;
+    if (carry < address) {
+      cycle = 1;
+    }
 
     address |= (this.read(this.programCounter.get()) << 8);
     this.programCounter.increment();
 
     this.absoluteAddress.set(address + this.registerX.get());
 
-    return 0;
+    return cycle;
   }
 
   /**
