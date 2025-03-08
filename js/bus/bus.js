@@ -46,7 +46,6 @@ export class Bus {
     this.writes = [];
     
     ppu.clock();
-    ppu.clock();
     if (this.systemClock.isTimeToClockCPU()) {
       if (this.dma.isTransfer()) {
         if (this.dma.isDummy()) {
