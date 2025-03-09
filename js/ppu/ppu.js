@@ -168,7 +168,7 @@ class PPU {
       }
 
       if (this.scanline === this.VISIBLE_FRAME_START && this.cycle === 0 && this.oddFrame && (this.maskRegister.getRenderBackground() || this.maskRegister.getRenderSprites())) {
-        this.cycle = 1;     // "Odd Frame" cycle skip
+        this.cycle++;     // "Odd Frame" cycle skip
       }
 
       if ((this.cycle >= 2 && this.cycle < 258) || (this.cycle >= 321 && this.cycle < 338)) {
@@ -222,7 +222,7 @@ class PPU {
         this.foreground.clearShifters();
         this.foreground.setSpriteZeroHitPossible(this.foreground.spriteEvaluation(this.scanline, this.controlRegister.getSpriteSizeInRows()));
 
-        if (this.foreground.getSpriteCount() >= 8) {
+        if (this.foreground.getSpriteCount() > 8) {
           this.statusRegister.setSpriteOverflow();
         } else {
           this.statusRegister.clearSpriteOverflow();
@@ -248,8 +248,6 @@ class PPU {
     let { pixel, palette } = this.getPrioritizedPixel();
     this.canvas.setCanvasImageData(this.cycle - 1, this.scanline, this.getColor(palette, pixel));
 
-    this.cycle++;
-
     if (this.maskRegister.getRenderBackground() || this.maskRegister.getRenderSprites()) {
       if (this.cycle === 260 && this.scanline < this.POST_RENDER_IDLE_LINE) {
         this.cartridge.getMapper().scanLine();
@@ -261,6 +259,8 @@ class PPU {
       this.statusRegister.clearSpriteOverflow();
       this.statusRegister.clearSpriteZeroHit();
     }
+
+    this.cycle++;
 
     if (this.cycle > this.END_OF_SCANLINE) {
       this.endOfScanline();

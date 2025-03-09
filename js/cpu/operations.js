@@ -22,7 +22,7 @@ export const UnofficialOperations = {
           { addressMode: "IMP", opcode: 0x7A, cycles: 2 },
           { addressMode: "IMP", opcode: 0xDA, cycles: 2 },
           { addressMode: "IMP", opcode: 0xFA, cycles: 2 },
-          { addressMode: "ZP0", opcode: 0x04, cycles: 2 },
+          { addressMode: "ZP0", opcode: 0x04, cycles: 3 },
           { addressMode: "ZP0", opcode: 0x64, cycles: 3 },
           { addressMode: "ZP0", opcode: 0x44, cycles: 3 },
           { addressMode: "ZPX", opcode: 0x34, cycles: 4 },
@@ -83,7 +83,7 @@ export const UnofficialOperations = {
           { addressMode: "IZX", opcode: 0xC3, cycles: 8 },
           { addressMode: "IZX", opcode: 0xE3, cycles: 8 },
           { addressMode: "IZX", opcode: 0x83, cycles: 6 },
-          { addressMode: "IZX", opcode: 0xA3, cycles: 8 },
+          { addressMode: "IZX", opcode: 0xA3, cycles: 6 },
           { addressMode: "IZX", opcode: 0x03, cycles: 8 },
           { addressMode: "IZY", opcode: 0x33, cycles: 8 },
           { addressMode: "IZY", opcode: 0x53, cycles: 8 },
@@ -107,7 +107,7 @@ export const UnofficialOperations = {
           { addressMode: "ZPX", opcode: 0xD7, cycles: 6 },
           { addressMode: "ZPX", opcode: 0xF7, cycles: 6 },
           { addressMode: "ZPX", opcode: 0x97, cycles: 4 },
-          { addressMode: "ZPX", opcode: 0xB7, cycles: 6 },
+          { addressMode: "ZPX", opcode: 0xB7, cycles: 4 },
           { addressMode: "ZPX", opcode: 0x17, cycles: 6 } ]
 };
 
