@@ -95,12 +95,20 @@ export class Foreground {
     return this.OAM.spriteEvaluation(scanline, spriteSize);
   }
 
-  writeOAM(address, data) {
-    address === undefined ? this.OAM.writeData(this.OAM.getAddress(), data) : this.OAM.writeData(address, data);
+  writeOAM(data) {
+    this.OAM.writeData(this.OAM.getAddress(), data);
+  }
+
+  writeToOAMAddress(address, data) {
+    this.OAM.writeData(address, data);
   }
 
   writeAddressOAM(address) {
     this.OAM.setAddress(address);
+  }
+
+  incrementAddressOAM() {
+    this.OAM.incrementAddress();
   }
 
   getOAM() {
@@ -173,6 +181,8 @@ export class Foreground {
     this.clearShifters();
     this.clearSpriteData();
     this.OAM.reset();
+    this.spriteZeroHitPossible = false;
+    this.spriteZeroBeingRendered = false;
   }
 
   clearShifters() {

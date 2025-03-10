@@ -61,7 +61,7 @@ class PPU {
   }
 
   writeOAM(address, data) {
-    this.foreground.writeOAM(address, data);
+    this.foreground.writeToOAMAddress(address, data);
   }
 
   isNMI() {
@@ -222,7 +222,7 @@ class PPU {
         this.foreground.clearShifters();
         this.foreground.setSpriteZeroHitPossible(this.foreground.spriteEvaluation(this.scanline, this.controlRegister.getSpriteSizeInRows()));
 
-        if (this.foreground.getSpriteCount() > 8) {
+        if (this.foreground.getSpriteCount() >= 8) {
           this.statusRegister.setSpriteOverflow();
         } else {
           this.statusRegister.clearSpriteOverflow();
@@ -449,6 +449,7 @@ class PPU {
         break;
       case 0x0004: // OAM Data
         this.foreground.writeOAM(data);
+        this.foreground.incrementAddressOAM();
         break;
       case 0x0005: // Scroll
         if (this.addressLatch === 0) {
@@ -547,6 +548,7 @@ class PPU {
     this.scrollVRAM.reset();
     this.scrollTRAM.reset();
     this.oddFrame = false;
+    this.nmi = false;
     this.palettes = new MemoryArea();
     this.nameTables.reset();
   }

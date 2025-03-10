@@ -9,11 +9,11 @@
  * CPU page to PPU OAM via the OAMDATA ($2004) register. OAM DMA will copy from the page most recently written to $4014.
  */
 export class DMA {
-  page = new Uint8Array(1);        // This together with address form a 16-bit address on the CPU's address bus, address is the low byte
+  page = new Uint8Array(1);       // This together with address form a 16-bit address on the CPU's address bus, address is the low byte
   address = new Uint8Array(1);
-  data = new Uint8Array(1);        // Represents the byte of data in transit from the CPU's memory to the OAM
-  transfer = false;                       // Indicates if a DMA transfer is ongoing
-  dummy = true;                           // Used to wait one or two clock cycles (if necessary) before the DMA can start happening (due to clock synchronization)
+  data = new Uint16Array(1);        // Represents the byte of data in transit from the CPU's memory to the OAM
+  transfer = false;                // Indicates if a DMA transfer is ongoing
+  dummy = true;                    // Used to wait one or two clock cycles (if necessary) before the DMA can start happening (due to clock synchronization)
 
   getPage() {
     return this.page[0];
@@ -47,6 +47,10 @@ export class DMA {
     this.dummy = value;
   }
 
+  setAddress(address) {
+    this.address[0] = address;
+  }
+
   /**
    * If this wraps around (is equal to 0), we know that 256 bytes have been written. Thus, the DMA transfer is finished.
    *
@@ -69,7 +73,6 @@ export class DMA {
    */
   enableTransfer(data) {
     this.page[0] = data;
-    this.address[0] = 0x00;
     this.transfer = true;
   }
 

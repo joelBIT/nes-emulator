@@ -69,6 +69,10 @@ export class OAM {
     this.address[0] = address;
   }
 
+  incrementAddress() {
+    this.address[0]++;
+  }
+
   getSpriteCount() {
     return this.spriteCount;
   }

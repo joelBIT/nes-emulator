@@ -12,7 +12,11 @@ export class Background {
   nextTile = new Tile();
   shifter = new Shifter();
   fineX = 0x00;     // offset (0 - 7) into a single tile (which is 8x8 pixels) to make the scrolling smooth
-  MSB = 0x8000;
+  MSB = new Uint16Array(1);
+
+  constructor() {
+    this.MSB[0] = 0x8000;
+  }
 
   getTileID() {
     return this.nextTile.getID();
@@ -58,12 +62,13 @@ export class Background {
   }
 
   getPixel() {
-    return new Pixel(this.shifter.getPixel(this.MSB >> this.fineX), Type.BACKGROUND, this.shifter.getPalette(this.MSB >> this.fineX));
+    return new Pixel(this.shifter.getPixel(this.MSB[0] >> this.fineX), Type.BACKGROUND, this.shifter.getPalette(this.MSB[0] >> this.fineX));
   }
 
   reset() {
     this.nextTile.reset();
     this.shifter.reset();
     this.fineX = 0x00;
+    this.MSB[0] = 0x8000;
   }
 }
