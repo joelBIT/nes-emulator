@@ -50,7 +50,7 @@ export class Bus {
     // The PPU is capable of emitting an interrupt to indicate the vertical blanking period has been entered. If it has, the irq is sent to the CPU.
     if (this.ppu.isNMI()) {
       this.ppu.clearNMI();
-      cpu.nmi();
+      cpu.invokeNMI();
     }
 
     if (this.systemClock.isTimeToClockCPU()) {
