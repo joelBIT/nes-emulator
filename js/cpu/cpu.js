@@ -33,12 +33,19 @@ class CPU {
   // The current number of cycles left when executing an instruction
   cycles = 0;
 
+  interruptNMI = false;     // Is set to true when the PPU invokes the NMI on scanline 241 and dot 1.
+  processingNMI = false;    // True when NMI is being processed
+
   constructor() {
     this.createInstructions();
   }
 
   connectBus(bus) {
     this.bus = bus;
+  }
+
+  invokeNMI() {
+    this.interruptNMI = true;
   }
 
   /**
@@ -55,8 +62,18 @@ class CPU {
    * One invocation of this method fetches and executes an instruction.
    */
   clock() {
-    if (this.cycles === 0) {
-
+    if (this.cycles === 0 && this.interruptNMI) {
+      this.nmi();
+      this.cycles = 27;   // Used to make scanline.nes render fine
+      this.processingNMI = true;
+    } else if (this.cycles > 0 && this.processingNMI) {
+      this.cycles--;
+      if (this.cycles === 0) {
+        this.interruptNMI = false;
+        this.processingNMI = false;
+      }
+      return;
+    } else if (this.cycles === 0) {
       this.operationCode.set(this.read(this.programCounter.get()));
       this.statusRegister.setFlag(Flags.U);
       this.programCounter.increment();

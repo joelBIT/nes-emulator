@@ -107,6 +107,10 @@ export class ControlRegister {
     return (this.control[0] & 0x80) >> 7;
   }
 
+  clearNMI() {
+    this.control[0] &= ~(1 << 7);
+  }
+
   setRegister(data) {
     this.control[0] = data;
   }

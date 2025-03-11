@@ -234,11 +234,14 @@ class PPU {
       }
     }   // End of VISIBLE SCAN LINES ((-1) 0 to 239)
 
-    if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 1) {
-      this.statusRegister.setVerticalBlank();
+    if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 15) {
       if (this.controlRegister.isNmiEnabled()) {
         this.nmi = true;                                // The PPU must inform the CPU about the nmi(), and this can be done in the bus
       }
+    }
+
+    if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 1) {
+      this.statusRegister.setVerticalBlank();
     }
 
     if (this.cycle >= 1 && this.cycle < 258) {
@@ -392,6 +395,10 @@ class PPU {
       case 0x0001: // Mask
         break;
       case 0x0002: // Status
+        if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle < 4 && this.cycle > 0) {    // This is to emulate NMI suppression
+          this.controlRegister.clearNMI();
+        }
+
         // The act of reading is changing the state of the device
         const result = (this.statusRegister.getRegister() & 0xE0) | (this.dataBuffer & 0x1F);
         this.statusRegister.clearVerticalBlank();
@@ -435,7 +442,12 @@ class PPU {
   writeRegister(address, data) {
     switch (address) {
       case 0x0000: // Control
+        const alreadyEnabled = this.controlRegister.isNmiEnabled();
         this.controlRegister.setRegister(data);
+        if (!alreadyEnabled && this.controlRegister.isNmiEnabled() > 0 && (this.statusRegister.getRegister() & 0x80) > 0) {
+          this.nmi = true;          // Invokes NMI immediately because nmi is set in control register when VBLANK is already set in status register
+        }
+        
         this.scrollTRAM.setNameTableX(this.controlRegister.getNameTableX());
         this.scrollTRAM.setNameTableY(this.controlRegister.getNameTableY());
         break;
