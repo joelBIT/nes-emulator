@@ -28,7 +28,7 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 <br><br>
 
 :musical_note:  <b>APU</b>
-  - All five channels (Square1, Square2, Triangle, Noise, DMC) are implemented :heavy_check_mark:
+  - All five channels (Square1, Square2, Triangle, Noise, DMC) are implemented
   - The APU needs some polishing but sounds decent most of the time
 
 <br><br>
