@@ -15,8 +15,8 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
   - All official instructions are implemented :heavy_check_mark:
   - nestest passes :heavy_check_mark:
   - NEStress CPU tests passes :heavy_check_mark:
-  - NES 6502 Timing Test passes :heavy_check_mark:
-  - NES 6502 Branch Timing Test passes :heavy_check_mark:
+  - NES 6502 Timing test passes :heavy_check_mark:
+  - NES 6502 Branch Timing test passes :heavy_check_mark:
 
 <br><br>
 
