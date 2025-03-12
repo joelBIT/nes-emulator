@@ -22,6 +22,8 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 
 <b>🖥️ PPU</b>
 - Implemented as NTSC
+- NTSC NES PPU tests passes :heavy_check_mark:
+- NES OAM Read test passes :heavy_check_mark:
   
 <br><br>
 
