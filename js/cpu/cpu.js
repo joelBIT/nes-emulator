@@ -64,7 +64,6 @@ class CPU {
   clock() {
     if (this.cycles === 0 && this.interruptNMI) {
       this.nmi();
-      this.cycles = 27;   // Used to make scanline.nes render fine
       this.processingNMI = true;
     } else if (this.cycles > 0 && this.processingNMI) {
       this.cycles--;
@@ -359,7 +358,7 @@ class CPU {
     this.absoluteAddress.set(0xFFFA);
     this.programCounter.set((this.read(0xFFFB) << 8) | this.read(0xFFFA));
 
-    this.cycles = 8;
+    this.cycles = 7;
   }
 
   /*

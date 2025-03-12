@@ -99,10 +99,6 @@ export class Foreground {
     this.OAM.writeData(this.OAM.getAddress(), data);
   }
 
-  writeToOAMAddress(address, data) {
-    this.OAM.writeData(address, data);
-  }
-
   writeAddressOAM(address) {
     this.OAM.setAddress(address);
   }
