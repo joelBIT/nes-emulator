@@ -63,7 +63,7 @@ export class Bus {
           if (this.systemClock.isTimeToReadBus()) {
             this.dma.setData(this.read((this.dma.getPage() << 8) | this.dma.getAddress()));
           } else {
-            this.ppu.writeOAM(this.dma.getAddress(), this.dma.getData());
+            this.write(0x2004, this.dma.getData());
             this.dma.incrementAddress();
             if (this.dma.isWrapping()) {
               this.dma.endTransfer();

@@ -60,10 +60,6 @@ class PPU {
     this.cartridge = cartridge;
   }
 
-  writeOAM(address, data) {
-    this.foreground.writeToOAMAddress(address, data);
-  }
-
   isNMI() {
     return this.nmi;
   }
@@ -356,8 +352,8 @@ class PPU {
    *
    */
   getPrioritizedPixel() {
-    let bgPixel = this.getBackgroundPixel();
-    let fgPixel = this.getForegroundPixel();
+    const bgPixel = this.getBackgroundPixel();
+    const fgPixel = this.getForegroundPixel();
     return bgPixel.comparePriority(fgPixel);
   }
 
@@ -373,7 +369,9 @@ class PPU {
         this.statusRegister.setSpriteZeroHit();
       } else {
         if (this.cycle >= 9 && this.cycle < 258) {
-          this.statusRegister.setSpriteZeroHit();
+          if (this.getBackgroundPixel().getWord() !== 0x00 && this.getForegroundPixel().getWord() !== 0x00) {
+            this.statusRegister.setSpriteZeroHit();
+          }
         }
       }
     }
@@ -398,6 +396,10 @@ class PPU {
         if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle < 4 && this.cycle > 0) {    // This is to emulate NMI suppression
           this.controlRegister.clearNMI();
         }
+
+        // if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 2) {    // This is to emulate 
+        //   this.statusRegister.clearVerticalBlank();
+        // }
 
         // The act of reading is changing the state of the device
         const result = (this.statusRegister.getRegister() & 0xE0) | (this.dataBuffer & 0x1F);
@@ -560,6 +562,7 @@ class PPU {
     this.scrollVRAM.reset();
     this.scrollTRAM.reset();
     this.oddFrame = false;
+    this.frameComplete = false;
     this.nmi = false;
     this.palettes = new MemoryArea();
     this.nameTables.reset();
