@@ -59,7 +59,7 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 
 <br><br>
 :video_game: <b>Controls</b>
-- Support for controller 1 and 2 :heavy_check_mark:
+- Support for controller 1 and 2
 - It is possible to configure controller 1 and 2 (configuration is stored in local storage)
 
 <table>
