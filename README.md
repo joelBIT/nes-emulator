@@ -12,7 +12,7 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 <br><br>
 
  💻 <b>CPU</b>
-  - All official instructions are implemented :heavy_check_mark:
+  - All official instructions are implemented
   - nestest passes :heavy_check_mark:
   - NEStress CPU tests passes :heavy_check_mark:
   - NES 6502 Timing test passes :heavy_check_mark:
