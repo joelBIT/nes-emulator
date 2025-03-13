@@ -225,7 +225,7 @@ class PPU {
         }
       }
 
-      if (this.cycle >= 0 && this.cycle < 258) {
+      if (this.cycle >= 1 && this.cycle < 258) {
         this.checkIfSpriteZeroHit();
       }
 
@@ -358,7 +358,8 @@ class PPU {
       if (this.maskRegister.getRenderBackgroundLeft() | this.maskRegister.getRenderSpritesLeft()) {
         this.statusRegister.setSpriteZeroHit();
       } else {
-        if (this.cycle >= 9) {
+        if (this.cycle >= 9 && this.cycle < 255) {
+          this.statusRegister.setSpriteZeroHit();
           if (this.getBackgroundPixel().getWord() !== 0x00 && this.getForegroundPixel().getWord() !== 0x00) {
             this.statusRegister.setSpriteZeroHit();
           }
