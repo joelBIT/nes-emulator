@@ -225,6 +225,10 @@ class PPU {
         }
       }
 
+      if (this.cycle >= 0 && this.cycle < 258) {
+        this.checkIfSpriteZeroHit();
+      }
+
       if (this.cycle === this.END_OF_SCANLINE) {
         this.loadSpritePatternsForNextScanline();
       }
@@ -240,10 +244,6 @@ class PPU {
       this.statusRegister.setVerticalBlank();
     }
 
-    if (this.cycle >= 1 && this.cycle < 258) {
-      this.checkIfSpriteZeroHit();
-    }
-
     let { pixel, palette } = this.getPrioritizedPixel();
     this.canvas.setCanvasImageData(this.cycle - 1, this.scanline, this.getColor(palette, pixel));
 
@@ -253,12 +253,6 @@ class PPU {
       }
     }
 
-    if (this.cycle === 1 && this.scanline === this.PRE_RENDER_LINE) {
-      this.statusRegister.clearVerticalBlank();
-      this.statusRegister.clearSpriteOverflow();
-      this.statusRegister.clearSpriteZeroHit();
-    }
-
     this.cycle++;
 
     if (this.cycle > this.END_OF_SCANLINE) {
@@ -266,10 +260,6 @@ class PPU {
       if (this.scanline >= this.PRE_RENDER_LINE) {
         this.endOfFrame();
       }
-    }
-
-    if (this.cartridge.getMapper().hasCycleCounter()) {
-      this.cartridge.getMapper().tickCycleCounter();
     }
   }
 
@@ -368,7 +358,7 @@ class PPU {
       if (this.maskRegister.getRenderBackgroundLeft() | this.maskRegister.getRenderSpritesLeft()) {
         this.statusRegister.setSpriteZeroHit();
       } else {
-        if (this.cycle >= 9 && this.cycle < 258) {
+        if (this.cycle >= 9) {
           if (this.getBackgroundPixel().getWord() !== 0x00 && this.getForegroundPixel().getWord() !== 0x00) {
             this.statusRegister.setSpriteZeroHit();
           }
