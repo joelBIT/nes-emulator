@@ -127,6 +127,8 @@ export class Bus {
       if (this.controllers[this.CONTROLLER_2].getActiveButton()) {
         this.controllerState[this.CONTROLLER_2] = this.controllers[this.CONTROLLER_2].getActiveButton();
       }
+    } else if (address === 0x4017) {
+      
     } else if (address >= 0x6000) {
       this.cartridge.writeByCPU(address, data);
     }
