@@ -68,6 +68,10 @@ export class FormatHeader {
     return this.header.getUint8(7) & 0x0C === 0x08;
   }
 
+  hasAlternativeNametableLayout() {
+    return this.header.getUint8(7) & 0x08;
+  }
+
   getMapperID() {
     return ((this.header.getUint8(7) >> 4) << 4) | (this.header.getUint8(6) >> 4);
   }

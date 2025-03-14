@@ -17,7 +17,7 @@ import { Mirror } from "../../mirror.js";
  */
 export class MapperTwo extends Mapper {
   id = 2;
-  mirrorMode = Mirror.VERTICAL;
+  mirrorMode = Mirror.HARDWARE;
   programBank = new Uint8Array(2);
 
   constructor(programBanks, characterBanks) {
