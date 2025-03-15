@@ -96,7 +96,7 @@ export class ControlRegister {
    * @returns {number}    the number of rows of sprites
    */
   getSpriteSizeInRows() {
-    return this.getSpriteSize() ? 16 : 8;
+    return this.getSpriteSize() === 1 ? 16 : 8;
   }
 
   isSpriteSize8by8() {

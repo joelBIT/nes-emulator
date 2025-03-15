@@ -17,7 +17,7 @@ import { ProgramRAM } from "../memory/ProgramRAM.js";
  */
 export class MapperSixtyNine extends Mapper {
   id = 69;
-  mirrorMode = Mirror.HORIZONTAL;
+  mirrorMode = Mirror.HARDWARE;
   commandRegister = new Uint8Array(1);
 
   programRamEnabled = false;
@@ -255,5 +255,6 @@ export class MapperSixtyNine extends Mapper {
     this.programMemoryMask = this.programBanks === 16 ? 0x1F : 0x0F;
     this.programRamBank = 0;
     this.programRAM = new ProgramRAM();
+    this.mirrorMode = Mirror.HARDWARE;
   }
 }

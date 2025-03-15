@@ -92,7 +92,7 @@ class BankRegister {
  */
 export class MapperFour extends Mapper {
   id = 4;
-  mirrorMode = Mirror.HORIZONTAL;
+  mirrorMode = Mirror.HARDWARE;
 
   programBankMode = false;
   characterInversion = false;
@@ -337,7 +337,7 @@ export class MapperFour extends Mapper {
     this.targetBankRegister = 0x00;
     this.programBankMode = false;
     this.characterInversion = false;
-    this.mirrorMode = Mirror.HORIZONTAL;
+    this.mirrorMode = Mirror.HARDWARE;
 
     this.programBank[3] = (this.programBanks * 2 - 1);    // Fixed to the last bank, never changes
     this.bankRegister.reset();
