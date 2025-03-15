@@ -17,7 +17,6 @@ import { Mirror } from "../../mirror.js";
  */
 export class MapperTwo extends Mapper {
   id = 2;
-  mirrorMode = Mirror.HARDWARE;
   programBank = new Uint8Array(2);
 
   constructor(programBanks, characterBanks) {
@@ -55,10 +54,6 @@ export class MapperTwo extends Mapper {
 
   mapReadByPPU(address) {
     return address;
-  }
-
-  mirror() {
-    return this.mirrorMode;
   }
 
   reset() {

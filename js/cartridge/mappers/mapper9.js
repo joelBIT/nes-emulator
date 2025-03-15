@@ -20,7 +20,7 @@ import { Mirror } from "../../mirror.js";
  */
 export class MapperNine extends Mapper {
   id = 9;
-  mirrorMode = Mirror.VERTICAL;
+  mirrorMode = Mirror.HARDWARE;
 
   latchDataA = new Uint8Array(2);
   latchDataB = new Uint8Array(2);
@@ -197,7 +197,7 @@ export class MapperNine extends Mapper {
   }
 
   reset() {
-    this.mirrorMode = Mirror.VERTICAL;
+    this.mirrorMode = Mirror.HARDWARE;
 
     this.programBank[0] = 0;
     this.programBank[1] = this.programBanks * 2 - 3;

@@ -25,7 +25,7 @@ import { Mapper } from "./mapper.js";
  */
 export class MapperOne extends Mapper {
   id = 1;
-  mirrorMode = Mirror.HORIZONTAL;
+  mirrorMode = Mirror.HARDWARE;
 
   shiftRegister = new Uint8Array(1);
   writeCounter = new Uint8Array(1);
@@ -139,6 +139,7 @@ export class MapperOne extends Mapper {
   }
 
   reset() {
+    this.mirrorMode = Mirror.HARDWARE;
     this.controlRegister[0] = 0x1C;
     this.shiftRegister[0] = 0x00;
     this.writeCounter[0] = 0x00;

@@ -19,7 +19,7 @@ import { Mirror } from "../../mirror.js";
  */
 export class MapperSeven extends Mapper {
   id = 7;
-  mirrorMode = Mirror.HORIZONTAL;
+  mirrorMode = Mirror.HARDWARE;
   programBank = 0;
 
   constructor(programBanks, characterBanks) {
@@ -63,6 +63,7 @@ export class MapperSeven extends Mapper {
   }
 
   reset() {
+    this.mirrorMode = Mirror.HARDWARE;
     this.programBank = 0;
   }
 }
