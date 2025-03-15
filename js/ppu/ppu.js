@@ -225,7 +225,7 @@ class PPU {
         }
       }
 
-      if (this.cycle >= 1 && this.cycle < 255 && this.scanline > this.PRE_VISIBLE_FRAME_LINE) {
+      if (this.cycle >= 1 && this.cycle < 258 && this.scanline > this.PRE_VISIBLE_FRAME_LINE) {
         this.checkIfSpriteZeroHit();
       }
 
