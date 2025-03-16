@@ -55,10 +55,6 @@ document.addEventListener("DOMContentLoaded", async (event) => {
 const keyUpEventLogger = function(event) {
   worker.postMessage({event: 'keyup', value: event.code});
 
-  if (event.code === 'ArrowUp') {
-    event.preventDefault();
-  }
-
   if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
     userInteraction = true;
     audioContext.resume();
@@ -68,7 +64,7 @@ const keyUpEventLogger = function(event) {
 const keyDownEventLogger = function(event) {
   worker.postMessage({event: 'keydown', value: event.code});
 
-  if (event.code === 'ArrowDown') {
+  if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
     event.preventDefault();
   }
 };
