@@ -31,6 +31,18 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
   - vbl_clear_time.nes :heavy_check_mark:
   - vram_access.nes :heavy_check_mark:
 - NES OAM Read test passes :heavy_check_mark:
+- NTSC NES PPU Sprite 0 test passes :heavy_check_mark:
+  - 01.basics.nes :heavy_check_mark:
+  - 02.alignment.nes :heavy_check_mark:
+  - 03.corners.nes :heavy_check_mark:
+  - 04.flip.nes :heavy_check_mark:
+  - 05.left_clip.nes :heavy_check_mark:
+  - 06.right_edge.nes :heavy_check_mark:
+  - 07.screen_bottom.nes :heavy_check_mark:
+  - 08.double_height.nes :heavy_check_mark:
+  - 09.timing_basics.nes :heavy_check_mark:
+  - 10.timing_order.nes :heavy_check_mark:
+  - 11.edge_timing.nes :heavy_check_mark:
   
 <br><br>
 
