@@ -156,9 +156,8 @@ class PPU {
               | Background Rendering |
               ************************
        */
-
-      // We leave the vertical blank period when we are at the top left of the screen, which is when scanline is -1 and cycle = 1
-      if (this.scanline === this.PRE_VISIBLE_FRAME_LINE && this.cycle === 1) {
+        
+      if (this.scanline <= 0 && this.cycle === 1) {
         this.statusRegister.reset();
         this.foreground.clearShifters();
       }
@@ -218,14 +217,12 @@ class PPU {
         this.foreground.clearShifters();
         this.foreground.setSpriteZeroHitPossible(this.foreground.spriteEvaluation(this.scanline, this.controlRegister.getSpriteSizeInRows()));
 
-        if (this.foreground.getSpriteCount() >= 8) {
+        if (this.foreground.getSpriteCount() >= 8 && (this.maskRegister.getRenderSprites() || this.maskRegister.getRenderBackground())) {
           this.statusRegister.setSpriteOverflow();
-        } else {
-          this.statusRegister.clearSpriteOverflow();
         }
       }
 
-      if (this.cycle >= 1 && this.cycle < 258 && this.scanline > this.PRE_VISIBLE_FRAME_LINE) {
+      if (this.cycle >= 1 && this.cycle < 258) {
         this.checkIfSpriteZeroHit();
       }
 
@@ -353,12 +350,9 @@ class PPU {
    * (since sprites X coordinate must be >= 0).
    */
   checkIfSpriteZeroHit() {
-    if (this.foreground.isSpriteZeroHitPossible() && this.foreground.isSpriteZeroBeingRendered()
-          && (this.maskRegister.getRenderBackground() & this.maskRegister.getRenderSprites())) {
-      if (this.maskRegister.getRenderBackgroundLeft() | this.maskRegister.getRenderSpritesLeft()) {
-        this.statusRegister.setSpriteZeroHit();
-      } else {
-        if (this.cycle >= 9) {
+    if (this.getBackgroundPixel().getWord() !== 0x00 && this.getForegroundPixel().getWord() !== 0x00) {
+      if (this.foreground.isSpriteZeroBeingRendered() && this.foreground.isSpriteZeroHitPossible()) {
+        if (this.cycle !== 256) {
           this.statusRegister.setSpriteZeroHit();
         }
       }
