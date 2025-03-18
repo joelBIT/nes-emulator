@@ -31,6 +31,10 @@ export class Mapper {
     this.characterBanks = characterBanks;
   }
 
+  getId() {
+    return -1;        // Returns the Id of the mapper extending this class
+  }
+
   /**
    * Maps a read operation made by the CPU. The address that the CPU wants to read from is mapped to the corresponding
    * address on the cartridge.
