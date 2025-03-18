@@ -350,9 +350,27 @@ class PPU {
    * (since sprites X coordinate must be >= 0).
    */
   checkIfSpriteZeroHit() {
+    if (this.cartridge.getMapper().getId() === 9 || this.cartridge.getMapper().getId() === 7) {
+      this.checkIfMapperSpecificSpriteZeroHit();
+      return;
+    }
+
     if (this.getBackgroundPixel().getWord() !== 0x00 && this.getForegroundPixel().getWord() !== 0x00) {
       if (this.foreground.isSpriteZeroBeingRendered() && this.foreground.isSpriteZeroHitPossible()) {
         if (this.cycle !== 256) {
+          this.statusRegister.setSpriteZeroHit();
+        }
+      }
+    }
+  }
+
+  checkIfMapperSpecificSpriteZeroHit() {
+    if (this.foreground.isSpriteZeroHitPossible() && this.foreground.isSpriteZeroBeingRendered()
+      && (this.maskRegister.getRenderBackground() & this.maskRegister.getRenderSprites())) {
+      if (this.maskRegister.getRenderBackgroundLeft() | this.maskRegister.getRenderSpritesLeft()) {
+        this.statusRegister.setSpriteZeroHit();
+      } else {
+        if (this.cycle >= 9) {
           this.statusRegister.setSpriteZeroHit();
         }
       }
