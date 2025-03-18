@@ -80,6 +80,11 @@ from the root folder of the project. Then go to <b>localhost:8080</b> in a brows
 :video_game: <b>Controls</b>
 - Support for controller 1 and 2
 - It is possible to configure controller 1 and 2 (configuration is stored in local storage)
+- read_joy3 passes :heavy_check_mark:
+  - count_errors.nes :heavy_check_mark:
+  - count_errors_fast.nes :heavy_check_mark:
+  - test_buttons.nes :heavy_check_mark:
+  - thorough_test.nes :heavy_check_mark:
 
 <table>
 <tr><th>Controller 1 </th><th>Controller 2</th></tr>
