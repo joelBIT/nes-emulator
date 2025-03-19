@@ -98,9 +98,9 @@ export class Cartridge {
   readByPPU(address) {
     if (this.mapper.hasCharacterBanks()) {
       return this.characterROM.read(this.mapper.mapReadByPPU(address));
-    } else {
-      return this.characterRAM.read(address);
     }
+
+    return this.characterRAM.read(address);
   }
 
   /**
